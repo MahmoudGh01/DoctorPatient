@@ -12,4 +12,10 @@ class Cabinet extends Model
 
     protected $guarded = [];
 
+
+    public function doctor()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

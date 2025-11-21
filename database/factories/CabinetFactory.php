@@ -19,6 +19,7 @@ class CabinetFactory extends Factory
         return [
             'name' => fake()->name(),
             'location' => fake()->address(),
+            'doctor_id' => fake()->numberBetween(1,5),
 
             //
         ];
