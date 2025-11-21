@@ -7,6 +7,7 @@ Route::get('/', [\App\Http\Controllers\WelcomeController::class, 'index']);
 
 Route::resource('cabinets', \App\Http\Controllers\CabinetController::class);
 
+Route::resource('appointments', \App\Http\Controllers\AppointmentController::class);
 
 Route::get('/dashboard', function () {
     return view('userzone.dashboard');
