@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Appointment;
 use App\Models\Cabinet;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,5 +27,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Cabinet::factory(5)->create();
+        Appointment::factory(5)->create();
     }
 }
