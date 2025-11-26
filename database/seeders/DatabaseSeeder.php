@@ -18,15 +18,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create random users with random roles
         User::factory(4)->create();
 
+        // Admin
         User::create([
             'name' => 'Mahmoud',
             'email' => 'Mahmoud@gharbi.com',
             'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
+
+        // Regular patient
+        User::create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'password' => Hash::make('password'),
+            'role' => 'patient',
+        ]);
+
+        // Doctors (optional)
+        User::factory()->count(3)->create([
+            'role' => 'doctor',
         ]);
 
         Cabinet::factory(5)->create();
         Appointment::factory(5)->create();
     }
+
 }
