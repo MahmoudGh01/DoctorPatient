@@ -1,0 +1,51 @@
+<x-app-layout title="Cabinets">
+
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            All Cabinets
+        </h2>
+    </x-slot>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+
+        @foreach($cabinets as $cabinet)
+            <div class="bg-white rounded-xl shadow-md p-5 border border-gray-200 hover:shadow-lg transition">
+
+                <!-- Cabinet Name -->
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                    <a href="/cabinets/{{$cabinet->id}}" class="hover:text-teal-600 transition">
+                        {{ $cabinet->name }}
+                    </a>
+                </h3>
+
+                <!-- Optional Location -->
+                @if($cabinet->location)
+                    <p class="text-sm text-gray-600 mb-4">
+                        📍 {{ Str::limit($cabinet->location, 60) }}
+                    </p>
+                @endif
+
+                <!-- Actions -->
+                <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+
+                    <a href="/cabinets/{{$cabinet->id}}/edit"
+                       class="text-sm text-blue-600 font-medium hover:underline">
+                        EDIT
+                    </a>
+
+                    <form action="/cabinets/{{$cabinet->id}}" method="POST"
+                          onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="text-sm text-red-600 font-medium hover:underline">
+                            DELETE
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        @endforeach
+
+    </div>
+
+</x-app-layout>
