@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-site-layout>
 
     <div>Dr .  {{$cabinet->name}}</div>
     <div>located at  {{$cabinet->location}}</div>
@@ -6,4 +6,4 @@
 
 
 
-</x-app-layout>
+</x-site-layout>
