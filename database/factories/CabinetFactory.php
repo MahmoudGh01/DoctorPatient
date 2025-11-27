@@ -16,12 +16,36 @@ class CabinetFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => fake()->name(),
-            'location' => fake()->address(),
-            'doctor_id' => fake()->numberBetween(1,5),
+        $specialties = [
+            'Cardiology',
+            'Dermatology',
+            'Neurology',
+            'Pediatrics',
+            'Orthopedics',
+            'Ophthalmology',
+            'Gastroenterology',
+            'Urology',
+            'Endocrinology',
+            'Radiology',
+            'ENT (Otolaryngology)',
+            'Oncology',
+            'Rheumatology',
+            'Pulmonology',
+            'General Surgery',
+            'Nephrology',
+            'Allergy & Immunology',
+            'Family Medicine',
+            'Internal Medicine',
+            'Psychiatry'
+        ];
 
-            //
+        $specialty = fake()->randomElement($specialties);
+
+        return [
+            'name' => $specialty . ' Clinic',
+            'location' => fake()->address(),
+            'doctor_id' => fake()->numberBetween(1, 5),
         ];
     }
+
 }
