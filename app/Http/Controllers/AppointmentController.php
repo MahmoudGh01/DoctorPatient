@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Cabinet;
 use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
@@ -22,15 +23,19 @@ class AppointmentController extends Controller
      */
     public function create(Request $request)
     {
-        return view('appointments.create', [
-            'cabinet_id' => $request->cabinet_id,
-        ]);
+        // Load cabinet with doctor relationship
+        $cabinet = Cabinet::with('doctor')
+            ->where('id', $request->cabinet_id)
+            ->firstOrFail();
+
+        return view('appointments.create', compact('cabinet'));
     }
+
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'datetime' => ['required', 'date'],
+            'datetime' => ['required'],
             'status' => ['required', 'string', 'in:scheduled,completed,cancelled'],
             'cabinet_id' => ['required', 'integer', 'exists:cabinets,id'], // FIXED
         ]);
