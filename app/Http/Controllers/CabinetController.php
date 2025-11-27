@@ -12,7 +12,7 @@ class CabinetController extends Controller
      */
     public function index()
     {
-        $cabinets = Cabinet::all();
+        $cabinets = Cabinet::with(['doctor:id,name,email','doctor.media'])->get();
 
         return view('cabinets.index', compact('cabinets'));
     }

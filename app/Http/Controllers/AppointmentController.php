@@ -13,7 +13,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::with(['cabinet:id,doctor_id,patient_id,name','cabinet.doctor.media','patient.media'])->get();
 
         return view('appointments.index', compact('appointments'));
     }
