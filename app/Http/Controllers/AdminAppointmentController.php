@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 
-class AppointmentController extends Controller
+class AdminAppointmentController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -14,7 +15,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::all();
 
-        return view('appointments.index', compact('appointments'));
+        return view('admin.appointments.index', compact('appointments'));
     }
 
     /**
@@ -22,7 +23,7 @@ class AppointmentController extends Controller
      */
     public function create(Request $request)
     {
-        return view('appointments.create', [
+        return view('admin.appointments.create', [
             'cabinet_id' => $request->cabinet_id,
         ]);
     }
@@ -37,9 +38,8 @@ class AppointmentController extends Controller
 
         Appointment::create($validated + ['patient_id' => auth()->id()]);
 
-        return redirect('/appointments');
+        return redirect('/admin/appointments');
     }
-
 
     /**
      * Display the specified resource.
@@ -48,7 +48,7 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
 
-        return view('appointments.show', compact('appointment'));
+        return view('admin.appointments.show', compact('appointment'));
     }
 
     /**
@@ -58,7 +58,7 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::find($id);
 
-        return view('appointments.edit', compact('appointment'));
+        return view('admin.appointments.edit', compact('appointment'));
     }
 
     /**
@@ -81,7 +81,7 @@ class AppointmentController extends Controller
         $appointment->update($validated);
 
         // add reference to your appointment
-        return redirect('/appointments');
+        return redirect('/admin/appointments');
     }
 
     /**
@@ -94,6 +94,6 @@ class AppointmentController extends Controller
 
         $appointment->delete();
 
-        return redirect('appointments');
+        return redirect('admin.appointments');
     }
 }

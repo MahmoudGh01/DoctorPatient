@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-site-layout>
 
 
     <div>Appointment Status:  {{$appointment->status}}</div>
@@ -10,4 +10,4 @@
 
 
 
-</x-app-layout>
+</x-site-layout>

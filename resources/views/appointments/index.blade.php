@@ -1,4 +1,4 @@
-<x-app-layout title="Appointments">
+<x-site-layout title="Appointments">
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -11,7 +11,7 @@
     <ul>
         @foreach($appointments as $appointment)
             <li class="flex justify-between hover:bg-gray-200">
-                <a href="/appointments/{{$appointment->id}}">{{ $appointment->id }}</a>
+                <a href="/appointments/{{$appointment->id}}">{{ $appointment->cabinet->doctor->name }}</a>
 
 
                 <div class="flex gap-x-4">
@@ -31,5 +31,5 @@
 
 
 
-</x-app-layout>
+</x-site-layout>
 
