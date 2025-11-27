@@ -6,11 +6,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +28,7 @@ class User extends Authenticatable
         'password',
         'role',
 
+        'photo_path',
     ];
 
     /**
@@ -68,4 +74,25 @@ class User extends Authenticatable
         return $this->role === 'patient';
     }
 
+    public function getImageUrl(string $conversion = 'preview'): string
+    {
+        if($this->media->first()) {
+            return $this->media->first()->getUrl($conversion);
+        } else {
+            return asset('img/user-placeholders/placeholder-'.$conversion.'.jpg');
+        }
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('preview')
+            ->fit(Fit::Crop, 320, 200)
+            ->nonQueued();
+
+        $this
+            ->addMediaConversion('website')
+            ->fit(Fit::Crop, 640, 400)
+            ->nonQueued();
+    }
 }

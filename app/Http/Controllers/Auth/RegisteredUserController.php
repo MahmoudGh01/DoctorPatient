@@ -36,7 +36,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', Rule::in(['patient', 'doctor', 'admin'])],
             'code' => ['nullable', 'string'], // will validate below
+            'photo' => ['nullable', 'image', 'max:2048'],
+
         ]);
+
 
         // Validate code based on role
         if ($request->role === 'admin' && $request->code !== '007') {
@@ -54,6 +57,9 @@ class RegisteredUserController extends Controller
             'role' => $request->role,
         ]);
 
+        if ($request->hasFile('photo')) {
+            $user->addMediaFromRequest('photo')->toMediaCollection('profile');
+        }
         event(new Registered($user));
 
         Auth::login($user);

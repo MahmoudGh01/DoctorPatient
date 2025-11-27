@@ -1,6 +1,9 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route('register') }} ">
         @csrf
+
+        <!-- Profile Photo -->
+        <input type="file" name="photo" />
 
         <!-- Name -->
         <div>
