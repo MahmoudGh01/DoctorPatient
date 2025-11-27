@@ -16,6 +16,24 @@
             <x-breeze.input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Role Selector -->
+        <div class="mt-4">
+            <x-breeze.input-label for="role" :value="__('Register as')" />
+            <select id="role" name="role" class="block mt-1 w-full" required>
+                <option value="patient" {{ old('role')=='patient' ? 'selected' : '' }}>Patient</option>
+                <option value="doctor" {{ old('role')=='doctor' ? 'selected' : '' }}>Doctor</option>
+                <option value="admin" {{ old('role')=='admin' ? 'selected' : '' }}>Admin</option>
+            </select>
+            <x-breeze.input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
+        <!-- Code field -->
+        <div class="mt-4">
+            <x-breeze.input-label for="code" :value="__('Code')" />
+            <x-breeze.text-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code')" />
+            <x-breeze.input-error :messages="$errors->get('code')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-breeze.input-label for="password" :value="__('Password')" />
