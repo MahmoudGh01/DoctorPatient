@@ -5,9 +5,9 @@
             All Appointments
         </h2>
     </x-slot>
+    {{ $appointments->links() }}
 
     <div class="max-w-5xl mx-auto mt-8">
-
         @foreach($appointments as $appointment)
             <a href="/appointments/{{ $appointment->id }}"
                class="block bg-white rounded-xl shadow-sm border border-gray-200 p-5 mb-4 hover:shadow-md hover:border-blue-400 transition">
@@ -19,7 +19,7 @@
 
                         <!-- DOCTOR PICTURE -->
                         <img
-                            src="{{ $appointment->cabinet->doctor->getFirstMediaUrl('profile') ?: 'https://ui-avatars.com/api/?name=' . urlencode($appointment->cabinet->doctor->name) }}"
+                            src="{{ $appointment->cabinet->doctor->getImageUrl('preview') ?: 'https://ui-avatars.com/api/?name=' . urlencode($appointment->cabinet->doctor->name) }}"
                             class="h-14 w-14 rounded-full object-cover border"
                         >
 

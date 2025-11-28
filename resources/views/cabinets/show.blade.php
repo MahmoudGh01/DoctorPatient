@@ -28,7 +28,7 @@
                 <div class="flex flex-col items-center text-center">
 
                     <img
-                        src="{{ $cabinet->doctor->getFirstMediaUrl('profile')
+                        src="{{ $cabinet->doctor->getImageUrl('preview')
                             ?: 'https://ui-avatars.com/api/?size=200&name=' . urlencode($cabinet->doctor->name) }}"
                         class="w-32 h-32 rounded-full object-cover border shadow"
                     >
