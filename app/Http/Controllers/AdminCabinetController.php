@@ -12,7 +12,7 @@ class AdminCabinetController extends Controller
      */
     public function index()
     {
-        $cabinets = Cabinet::all();
+        $cabinets = Cabinet::with(['doctor:id,name,email','doctor.media'])->paginate(10);
 
         return view('admin.cabinets.index', compact('cabinets'));
     }
@@ -45,12 +45,16 @@ class AdminCabinetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $cabinet = Cabinet::find($id);
+        $cabinet = Cabinet::with([
+            'doctor.media',
+            'appointments.patient.media',
+        ])->findOrFail($id);
 
         return view('admin.cabinets.show', compact('cabinet'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

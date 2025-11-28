@@ -13,8 +13,13 @@ class AdminAppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::all();
-
+        $appointments = Appointment::with([
+            'cabinet:id,doctor_id,name',
+            'cabinet.doctor:id,name,email',
+            'cabinet.doctor.media',
+            'patient:id,name,email',
+            'patient.media'
+        ])->paginate(10);
         return view('admin.appointments.index', compact('appointments'));
     }
 
