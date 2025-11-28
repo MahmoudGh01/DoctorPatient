@@ -56,7 +56,12 @@ class User extends Authenticatable implements HasMedia
 
     public function cabinet()
     {
-        return $this->hasOne(Cabinet::class);
+        return $this->hasOne(Cabinet::class, 'doctor_id');
+    }
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
+
     }
 
     public function isAdmin()
