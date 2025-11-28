@@ -12,12 +12,74 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-breeze.nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+
+                    {{-- DASHBOARD --}}
+                    <x-breeze.nav-link
+                        :href="route('dashboard')"
+                        :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-breeze.nav-link>
 
 
+                    {{-- ADMIN MENU --}}
+                    @if(auth()->user()->role === 'admin')
+
+                        <x-breeze.nav-link
+                            href="{{ route('admin.appointments.index') }}"
+                            :active="request()->routeIs('admin.appointments.*')">
+                            {{ __('Appointments') }}
+                        </x-breeze.nav-link>
+
+                        <x-breeze.nav-link
+                            href="{{ route('admin.cabinets.index') }}"
+                            :active="request()->routeIs('admin.cabinets.*')">
+                            {{ __('Doctors') }}
+                        </x-breeze.nav-link>
+
+                        <x-breeze.nav-link
+                            href="{{ route('admin.patients.index') }}"
+                            :active="request()->routeIs('admin.patients.*')">
+                            {{ __('Patients') }}
+                        </x-breeze.nav-link>
+
+                    @endif
+
+
+
+                    {{-- DOCTOR MENU --}}
+                    @if(auth()->user()->role === 'doctor')
+
+                        <x-breeze.nav-link
+                            href="{{ route('doctor.appointments.index') }}"
+                            :active="request()->routeIs('doctor.appointments.*')">
+                            {{ __('Appointments') }}
+                        </x-breeze.nav-link>
+
+                        <x-breeze.nav-link
+                            href="{{ route('doctor.patients.index') }}"
+                            :active="request()->routeIs('doctor.patients.*')">
+                            {{ __('My Patients') }}
+                        </x-breeze.nav-link>
+
+                    @endif
+
+
+
+                    {{-- PATIENT MENU (optional) --}}
+                    @if(auth()->user()->role === 'patient')
+
+                        <x-breeze.nav-link
+                            href="{{ route('appointments.index') }}"
+                            :active="request()->routeIs('appointments.*')">
+                            {{ __('My Appointments') }}
+                        </x-breeze.nav-link>
+
+                    @endif
+
                 </div>
+
+
+
             </div>
 
             <!-- Settings Dropdown -->
