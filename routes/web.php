@@ -29,8 +29,32 @@ Route::middleware('auth')->group(function () {
 
 
 
-    Route::resource('admin/cabinets', \App\Http\Controllers\AdminCabinetController::class)->middleware('role:admin');
-    Route::resource('admin/appointments', \App\Http\Controllers\AdminAppointmentController::class)->middleware('role:admin');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+        Route::resource('patients', App\Http\Controllers\AdminPatientController::class)
+            ->names('patients');
+        Route::resource('appointments', App\Http\Controllers\AdminAppointmentController::class)
+            ->names('appointments');
+
+        Route::resource('cabinets', \App\Http\Controllers\AdminCabinetController::class)
+        ->names('cabinets');
+
+
+
+    })->middleware('role:admin');
+
+    Route::prefix('doctor')->name('doctor.')->group(function () {
+
+
+        Route::resource('appointments', \App\Http\Controllers\DoctorAppointmentController::class)
+            ->names('appointments');
+
+        Route::resource('patients', \App\Http\Controllers\DoctorPatientController::class)
+            ->only(['index', 'show'])
+            ->names('patients');
+
+    })->middleware('role:doctor');
 
 
     Route::resource('appointments', \App\Http\Controllers\AppointmentController::class);
