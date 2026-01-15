@@ -16,14 +16,14 @@
     @endif
 
     <input
-        type="date"
+        type="hidden"
         x-model="date"
         @change="update()"
         class="w-full border mb-2 @error($name) border-red-500 @else border-black @enderror"
     >
 
     <input
-        type="time"
+        type="hidden"
         x-model="time"
         @change="update()"
         class="w-full border @error($name) border-red-500 @else border-black @enderror"

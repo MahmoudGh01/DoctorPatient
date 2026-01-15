@@ -91,8 +91,8 @@
                 {{-- Hidden cabinet ID --}}
                 <input type="hidden" name="cabinet_id" value="{{ $cabinet->id }}" />
 
-                {{-- Status --}}
-                <x-form-text name="status" label="Status" placeholder="Pending" />
+                <input type="hidden" name="status" value="scheduled">
+
 
                 {{-- Datetime Picker --}}
                 <x-date-time-picker name="datetime" label="Selected Date & Time" />
@@ -126,12 +126,13 @@
                 contentHeight: "auto",
                 expandRows: true,
 
+                slotDuration: "00:30:00",
                 slotMinTime: "08:00:00",
                 slotMaxTime: "18:00:00",
-                slotDuration: '00:30:00',
                 allDaySlot: false,
 
-                events: '/api/calendar/appointments',
+
+                events: '/api/calendar/appointments?cabinet_id={{ $cabinet->id }}',
 
                 select: function(info) {
                     const date = info.start.toISOString().slice(0, 10);
