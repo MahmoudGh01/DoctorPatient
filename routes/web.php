@@ -7,18 +7,8 @@ Route::get('/', \App\Http\Controllers\WelcomeController::class);
 
 Route::resource('cabinets', \App\Http\Controllers\CabinetController::class)->only(['index', 'show']);
 
-Route::get('/api/calendar/appointments', function () {
-    return \App\Models\Appointment::select('id', 'datetime', 'cabinet_id')
-        ->get()
-        ->map(function ($a) {
-            return [
-                'id' => $a->id,
-                'title' => 'Booked',
-                'start' => $a->datetime,
-                'color' => '#ef4444'
-            ];
-        });
-});
+Route::get('/api/calendar/appointments', [\App\Http\Controllers\CalendarController::class, 'appointments']);
+
 
 
 Route::get('/dashboard', function () {

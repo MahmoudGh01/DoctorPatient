@@ -44,9 +44,9 @@ class AppointmentController extends Controller
     {
         $validated = $request->validate([
             'datetime' => ['required'],
-            'status' => ['required', 'string', 'in:scheduled,completed,cancelled'],
             'cabinet_id' => ['required', 'integer', 'exists:cabinets,id'], // FIXED
         ]);
+        $validated['status'] = 'scheduled';
 
         Appointment::create($validated + ['patient_id' => auth()->id()]);
 
