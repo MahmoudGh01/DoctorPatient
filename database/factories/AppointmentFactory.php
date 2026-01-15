@@ -17,11 +17,11 @@ class AppointmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'datetime' => fake()->dateTimeBetween('+1 days', '+1 month'),
+            'datetime' => $this->faker->dateTimeBetween('+1 days', '+1 month'),
 
-            'status' => fake()->randomElement(['scheduled', 'completed', 'canceled']),
-            'patient_id' => fake()->numberBetween(1, 5),
-            'cabinet_id' => fake()->numberBetween(1, 5),
+            'status' => $this->faker->randomElement(['scheduled', 'completed', 'canceled']),
+            'patient_id' => $this->faker->numberBetween(1, 5),
+            'cabinet_id' => $this->faker->numberBetween(1, 5),
 
         ];
     }

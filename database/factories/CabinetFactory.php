@@ -39,12 +39,12 @@ class CabinetFactory extends Factory
             'Psychiatry'
         ];
 
-        $specialty = fake()->randomElement($specialties);
+        $specialty = $this->faker->randomElement($specialties);
 
         return [
             'name' => $specialty . ' Clinic',
-            'location' => fake()->address(),
-            'doctor_id' => fake()->numberBetween(1, 5),
+            'location' => $this->faker->address(),
+            'doctor_id' => $this->faker->numberBetween(1, 5),
         ];
     }
 
