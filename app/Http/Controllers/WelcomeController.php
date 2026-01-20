@@ -21,8 +21,7 @@ class WelcomeController extends Controller
                     ->withCount('appointments')
                     ->orderByDesc('appointments_count')
                     ->take(6)
-                    ->get()
-                    ->toArray(); // 🔥 FIX
+                    ->first(); // 🔥 FIX
             }
         );
 
