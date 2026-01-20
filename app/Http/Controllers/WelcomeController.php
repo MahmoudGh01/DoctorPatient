@@ -11,9 +11,9 @@ class WelcomeController extends Controller
     {
         $popularCabinets = cache()->remember(
             'welcome_page_popular_cabinets',
-            config('app.cache_ttl'),
+            now()->addMinutes(config('app.cache_ttl')),
             function () {
-                return \App\Models\Cabinet::query()
+                return Cabinet::query()
                     ->with([
                         'doctor:id,name,email',
                         'doctor.media'
@@ -21,9 +21,11 @@ class WelcomeController extends Controller
                     ->withCount('appointments')
                     ->orderByDesc('appointments_count')
                     ->take(6)
-                    ->get();
+                    ->get()
+                    ->toArray(); // 🔥 FIX
             }
         );
+
 
 
         return view('welcome', compact('popularCabinets'));
