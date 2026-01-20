@@ -11,7 +11,7 @@ class WelcomeController extends Controller
     {
         $popularCabinets = cache()->remember(
             'welcome_page_popular_cabinets',
-            now()->addMinutes(config('app.cache_ttl')),
+            config('app.cache_ttl'),
             function () {
                 return Cabinet::query()
                     ->with([
@@ -21,7 +21,7 @@ class WelcomeController extends Controller
                     ->withCount('appointments')
                     ->orderByDesc('appointments_count')
                     ->take(6)
-                    ->first(); // 🔥 FIX
+                    ->get(); // 🔥 FIX
             }
         );
 
