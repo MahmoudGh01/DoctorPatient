@@ -17,6 +17,27 @@ Route::get('/calendar/appointments', function() {
     return response()->json(['message' => 'Calendar endpoint - to be implemented']);
 });
 
+// Login endpoint to get token
+Route::post('/login', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = \App\Models\User::where('email', $request->email)->first();
+
+    if (!$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Invalid credentials'], 401);
+    }
+
+    $token = $user->createToken('api-token')->plainTextToken;
+
+    return response()->json([
+        'token' => $token,
+        'user' => new \App\Http\Resources\User\UserResource($user),
+    ]);
+});
+
 // Protected API routes
 Route::middleware(['auth:sanctum'])->group(function () {
     
