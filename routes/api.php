@@ -10,14 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/cabinets', [CabinetController::class, 'index'])->name('api.cabinets.index');
 Route::get('/cabinets/{id}', [CabinetController::class, 'show'])->name('api.cabinets.show');
 
-// Calendar appointments (public or semi-public)
-Route::get('/calendar/appointments', function() {
-    // This would return appointments for calendar display
-    // Keeping it simple for now - can be expanded
-    return response()->json(['message' => 'Calendar endpoint - to be implemented']);
-});
-
-// Login endpoint to get token
+// Login endpoint to get token (rate limited)
 Route::post('/login', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -36,7 +29,7 @@ Route::post('/login', function (Request $request) {
         'token' => $token,
         'user' => new \App\Http\Resources\User\UserResource($user),
     ]);
-});
+})->middleware('throttle:5,1'); // Max 5 attempts per minute
 
 // Protected API routes
 Route::middleware(['auth:sanctum'])->group(function () {

@@ -11,7 +11,12 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // If patient_id is provided and different from auth user, only admins can do this
+        if ($this->has('patient_id') && $this->patient_id != auth()->id()) {
+            return auth()->check() && auth()->user()->isAdmin();
+        }
+        // Otherwise, any authenticated user can create appointments
+        return auth()->check();
     }
 
     /**

@@ -11,7 +11,8 @@ class UpdateCabinetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // Only admins can update cabinets
+        return auth()->check() && auth()->user()->isAdmin();
     }
 
     /**

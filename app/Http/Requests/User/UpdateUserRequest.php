@@ -12,7 +12,10 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $userId = $this->route('user');
+        // Users can update their own profile, or admins can update any profile
+        return auth()->check() && 
+               (auth()->user()->isAdmin() || auth()->id() == $userId);
     }
 
     /**

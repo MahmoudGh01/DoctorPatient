@@ -11,7 +11,16 @@ class UpdateAppointmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // Admins and doctors can update any appointment
+        // Patients can only update their own appointments
+        $user = auth()->user();
+        if ($user->isAdmin() || $user->isDoctor()) {
+            return true;
+        }
+        
+        // For patients, check if they own the appointment
+        $appointment = \App\Models\Appointment::find($this->route('id'));
+        return $appointment && $appointment->patient_id == $user->id;
     }
 
     /**
