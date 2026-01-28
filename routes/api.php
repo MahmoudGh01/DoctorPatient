@@ -46,15 +46,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    // Patient routes - accessible to authenticated users
-    Route::prefix('appointments')->name('api.appointments.')->group(function () {
-        Route::get('/', [AppointmentController::class, 'index'])->name('index');
-        Route::post('/', [AppointmentController::class, 'store'])->name('store');
-        Route::get('/{id}', [AppointmentController::class, 'show'])->name('show');
-        Route::put('/{id}', [AppointmentController::class, 'update'])->name('update');
-        Route::delete('/{id}', [AppointmentController::class, 'destroy'])->name('destroy');
-    });
-
     // Admin routes
     Route::prefix('admin')->name('api.admin.')->middleware('api.role:admin')->group(function () {
         
@@ -101,5 +92,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/{user}', [UserController::class, 'show'])->name('show');
         });
+    });
+
+    // Patient routes - accessible to authenticated users (patients, doctors, admins can create appointments)
+    Route::prefix('appointments')->name('api.appointments.')->group(function () {
+        Route::get('/', [AppointmentController::class, 'index'])->name('index');
+        Route::post('/', [AppointmentController::class, 'store'])->name('store');
+        Route::get('/{id}', [AppointmentController::class, 'show'])->name('show');
+        Route::put('/{id}', [AppointmentController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AppointmentController::class, 'destroy'])->name('destroy');
     });
 });

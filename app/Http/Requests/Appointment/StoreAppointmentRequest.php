@@ -22,7 +22,7 @@ class StoreAppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'datetime' => ['required', 'date', 'after:now'],
+            'datetime' => ['required', 'date', 'after_or_equal:now'],
             'status' => ['required', 'string', 'in:scheduled,completed,cancelled'],
             'cabinet_id' => ['required', 'integer', 'exists:cabinets,id'],
             'patient_id' => ['sometimes', 'integer', 'exists:users,id'],

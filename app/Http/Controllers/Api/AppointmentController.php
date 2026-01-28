@@ -43,8 +43,13 @@ class AppointmentController extends Controller
         }
 
         // Sorting
+        $allowedSortFields = ['id', 'status', 'datetime', 'patient_id', 'cabinet_id', 'created_at', 'updated_at'];
         $sortBy = $request->get('sort', 'datetime');
+        $sortBy = in_array($sortBy, $allowedSortFields) ? $sortBy : 'datetime';
+        
         $direction = $request->get('direction', 'asc');
+        $direction = in_array(strtolower($direction), ['asc', 'desc']) ? $direction : 'asc';
+        
         $query->orderBy($sortBy, $direction);
 
         $appointments = $query->paginate($perPage);

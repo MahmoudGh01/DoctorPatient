@@ -32,8 +32,13 @@ class CabinetController extends Controller
         }
 
         // Sorting
+        $allowedSortFields = ['id', 'name', 'location', 'doctor_id', 'created_at', 'updated_at'];
         $sortBy = $request->get('sort', 'created_at');
+        $sortBy = in_array($sortBy, $allowedSortFields) ? $sortBy : 'created_at';
+        
         $direction = $request->get('direction', 'desc');
+        $direction = in_array(strtolower($direction), ['asc', 'desc']) ? $direction : 'desc';
+        
         $query->orderBy($sortBy, $direction);
 
         $cabinets = $query->paginate($perPage);
