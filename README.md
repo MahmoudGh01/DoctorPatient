@@ -39,6 +39,72 @@ Customisation was done based on Laravel version 12.x. (12.37.0 on November 9th, 
 Everything that follows below (and the shields in the header) are part of the original Laravel README.md file.
 
 ---
+
+## 🚀 REST API Implementation
+
+This application includes a **comprehensive REST API** for all core models with full CRUD operations. The API follows Laravel best practices and industry standards.
+
+### Features
+
+✅ **Token-Based Authentication** using Laravel Sanctum  
+✅ **Role-Based Authorization** (Admin, Doctor, Patient)  
+✅ **Full CRUD Operations** for Users, Appointments, and Cabinets  
+✅ **Advanced Features**: Pagination, Filtering, Sorting, Search  
+✅ **Form Request Validation** with meaningful error messages  
+✅ **API Resources** for consistent JSON responses  
+✅ **Proper HTTP Status Codes** (200, 201, 204, 401, 403, 404, 422)
+
+### Quick Start
+
+1. **Seed Test Data:**
+```bash
+php artisan db:seed --class=TestDataSeeder
+```
+
+2. **Login to Get Token:**
+```bash
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"password"}'
+```
+
+3. **Use the API:**
+```bash
+# List cabinets (public)
+curl http://localhost:8000/api/cabinets
+
+# List appointments (authenticated)
+curl http://localhost:8000/api/appointments \
+  -H "Authorization: Bearer {your-token}"
+```
+
+### Documentation
+
+See **[API_DOCUMENTATION.md](./API_DOCUMENTATION.md)** for complete API reference, including:
+- All available endpoints
+- Request/response examples
+- Authentication & authorization
+- Query parameters for filtering, sorting, pagination
+- Validation rules
+- Error responses
+
+### API Routes Structure
+
+```
+/api
+  /login (POST) - Get authentication token
+  /cabinets (GET, public) - List/view cabinets
+  /appointments (GET, POST, PUT, DELETE) - Manage appointments
+  /admin
+    /users (CRUD) - User management
+    /appointments (CRUD) - Appointment management
+    /cabinets (CRUD) - Cabinet management
+  /doctor
+    /appointments (Read/Update) - Doctor's appointments
+    /patients (Read only) - Doctor's patients
+```
+
+---
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
