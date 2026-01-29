@@ -14,6 +14,12 @@ class CabinetShowResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
-    }
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'location' => $this->location,
+            //'author' => new AuthorShowResource($this->author),
+            'promo_url' => route('cabinets.show', ['cabinet' => $this->id]),
+            //'comments' => CommentIndexResource::collection($this->whenLoaded('comments')),
+        ];    }
 }

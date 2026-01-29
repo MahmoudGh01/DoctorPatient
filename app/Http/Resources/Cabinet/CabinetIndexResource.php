@@ -18,7 +18,7 @@ class CabinetIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'Speciality' => $this->name,
-            'location' => Str::limit($this->location,20),
+            'location' => $this->location,
             //'doctor' => new DoctorShowResource($this->whenLoaded('doctor')),
             'image_url' => $this->doctor->getImageUrl('preview'),
             'link' => route('api.cabinets.show', ['id' => $this->id]),
