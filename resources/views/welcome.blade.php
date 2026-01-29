@@ -11,6 +11,8 @@
                 </p>
             </div>
         </section>
+        <livewire:cabinet-search />
+
 
         {{-- POPULAR CABINETS SECTION --}}
         <div class="max-w-6xl mx-auto px-4">
