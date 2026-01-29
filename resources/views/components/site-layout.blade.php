@@ -42,9 +42,10 @@
     <div class="mx-auto max-w-6xl px-4">
 
         <!-- Content Slot -->
-        <div class="bg-white rounded-xl shadow-md p-6">
-            {{$slot}}
+        <div class="w-full">
+            {{ $slot }}
         </div>
+
 
     </div>
 </main>
