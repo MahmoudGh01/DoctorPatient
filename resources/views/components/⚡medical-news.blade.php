@@ -16,7 +16,7 @@ new class extends Component
                 [
                     'country'  => 'us',
                     'category' => 'health',
-                    'apiKey'   => '396839841f1c401fb1d742caebbd5320',
+                    'apiKey'   => config('services.news_api.key'),
                 ]
             );
 
