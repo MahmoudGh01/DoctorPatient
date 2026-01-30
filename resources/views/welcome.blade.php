@@ -1,15 +1,6 @@
 <x-site-layout title="Welcome">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-        <div class="lg:col-span-1">
-            <livewire:health-tips-filters />
-        </div>
-
-        <div class="lg:col-span-3">
-            <livewire:health-tips-list />
-        </div>
-
-    </div>
+    <livewire:health-tip-random />
 
 
     <!-- HERO SECTION -->
@@ -154,6 +145,17 @@
 
                     </div>
                 </section>
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                    <div class="lg:col-span-1">
+                        <livewire:health-tips-filters />
+                    </div>
+
+                    <div class="lg:col-span-3">
+                        <livewire:health-tips-list />
+                    </div>
+
+                </div>
 
             </div>
 
